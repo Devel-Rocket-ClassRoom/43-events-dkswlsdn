@@ -160,7 +160,41 @@ using System;
 {
     Console.WriteLine("\n===========================");
 
+    SecurePublisher publisher = new SecurePublisher();
 
+    publisher.MyEvent += Handler1;
+    publisher.MyEvent += Handler2;
+
+    Console.WriteLine("\n이벤트 발생:");
+    publisher.RaiseEvent();
+
+    Console.WriteLine();
+    publisher.MyEvent -= Handler1;
+
+    Console.WriteLine("\n이벤트 발생:");
+    publisher.RaiseEvent();
+
+
+    void Handler1(object sender, EventArgs e)
+    {
+        Console.WriteLine("Handler1 실행됨");
+    }
+
+    void Handler2(object sender, EventArgs e)
+    {
+        Console.WriteLine("Handler2 실행됨");
+    }
+}
+
+{
+    Console.WriteLine("\n===========================");
+
+    Module1 module1 = new Module1();
+    Module2 module2 = new Module2();
+
+    GlobalNotifier.SendMessage("시스템 시작");
+    Console.WriteLine();
+    GlobalNotifier.SendMessage("데이터 로드 완료");
 }
 
 delegate void Notify();
